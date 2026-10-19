@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: navigator-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: navigator
+      POSTGRES_USER: navigator
+      POSTGRES_PASSWORD: navigator_dev_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - navigator_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U navigator -d navigator"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+  app:
+    build: .
+    container_name: navigator-app
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://navigator:navigator_dev_password@db:5432/navigator
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  navigator_pgdata:
