@@ -1,0 +1,2409 @@
+[
+    {
+        "profession_id": "prof_001",
+        "name": "Инженер-механик",
+        "industry": "Машиностроение",
+        "description_for_kid": "Придумывает и собирает станки, машины и роботов, чинит оборудование.",
+        "riasec_profile": {
+            "R": 0.94,
+            "I": 0.76,
+            "A": 0.31,
+            "S": 0.16,
+            "E": 0.25,
+            "C": 0.66
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 64500
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 18,
+                "salary_median_rub": 64500,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_016",
+                "name": "Пространственное мышление",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_003",
+                "name": "Работа в команде",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_001",
+                "title": "Тест-драйв УрФУ: Инженерные науки",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Мастер-классы по радиоэлектронике и 3D-сканированию"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_002",
+        "name": "Инженер-конструктор",
+        "industry": "Машиностроение",
+        "description_for_kid": "Чертит детали и узлы в специальных программах, придумывает, как устроить механизм.",
+        "riasec_profile": {
+            "R": 0.84,
+            "I": 0.76,
+            "A": 0.35,
+            "S": 0.19,
+            "E": 0.29,
+            "C": 0.57
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 68500
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 76,
+                "salary_median_rub": 68500,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_010",
+                "name": "3D-моделирование",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_016",
+                "name": "Пространственное мышление",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_001",
+                "title": "Тест-драйв УрФУ: Инженерные науки",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Мастер-классы по радиоэлектронике и 3D-сканированию"
+            },
+            {
+                "trial_id": "trial_006",
+                "title": "Хайтек-цех (3D-печать)",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Работа на 3D-принтерах и станках с ЧПУ"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_003",
+        "name": "Оператор станков с ЧПУ",
+        "industry": "Машиностроение",
+        "description_for_kid": "Управляет умным станком, который по программе вытачивает точные металлические детали.",
+        "riasec_profile": {
+            "R": 0.91,
+            "I": 0.4,
+            "A": 0.2,
+            "S": 0.14,
+            "E": 0.2,
+            "C": 0.78
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 75000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 20,
+                "salary_median_rub": 75000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_025",
+                "name": "Технология машиностроения",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "level": "СПО",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_026",
+                "name": "Мехатроника и робототехника",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "level": "СПО",
+                "fit_level": "смежная"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_006",
+                "title": "Хайтек-цех (3D-печать)",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Работа на 3D-принтерах и станках с ЧПУ"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_004",
+        "name": "Сварщик",
+        "industry": "Машиностроение",
+        "description_for_kid": "Соединяет металлические конструкции сваркой (от мостов до космических аппаратов).",
+        "riasec_profile": {
+            "R": 1.0,
+            "I": 0.31,
+            "A": 0.21,
+            "S": 0.16,
+            "E": 0.23,
+            "C": 0.54
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 29,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 3
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_003",
+                "title": "Каникулы в металлургии",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Экскурсия на ВИЗ-Сталь и профессиональные пробы"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_005",
+        "name": "Токарь",
+        "industry": "Машиностроение",
+        "description_for_kid": "Работает на станке, обтачивая металлические заготовки до нужного размера.",
+        "riasec_profile": {
+            "R": 1.0,
+            "I": 0.38,
+            "A": 0.19,
+            "S": 0.14,
+            "E": 0.2,
+            "C": 0.7
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 60000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 60000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_006",
+        "name": "Инженер-металлург",
+        "industry": "Металлургия",
+        "description_for_kid": "Изучает свойства металлов и сплавов, контролирует процесс их плавки на заводе.",
+        "riasec_profile": {
+            "R": 0.84,
+            "I": 0.83,
+            "A": 0.29,
+            "S": 0.2,
+            "E": 0.36,
+            "C": 0.59
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 5,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_022",
+                "name": "Химия",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 3
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_003",
+                "title": "Каникулы в металлургии",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Экскурсия на ВИЗ-Сталь и профессиональные пробы"
+            },
+            {
+                "trial_id": "trial_009",
+                "title": "Промышленный туризм (ВИЗ-Сталь)",
+                "organization": "ВИЗ-Сталь",
+                "format": "очно",
+                "description": "Экскурсия на металлургическое производство"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_007",
+        "name": "Технолог металлургии",
+        "industry": "Металлургия",
+        "description_for_kid": "Следит за тем, чтобы металл плавился при нужной температуре и получался правильного качества.",
+        "riasec_profile": {
+            "R": 0.8,
+            "I": 0.7,
+            "A": 0.15,
+            "S": 0.3,
+            "E": 0.3,
+            "C": 0.7
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 60000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 8,
+                "salary_median_rub": 60000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_022",
+                "name": "Химия",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_009",
+                "title": "Промышленный туризм (ВИЗ-Сталь)",
+                "organization": "ВИЗ-Сталь",
+                "format": "очно",
+                "description": "Экскурсия на металлургическое производство"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_008",
+        "name": "Инженер-энергетик",
+        "industry": "Энергетика",
+        "description_for_kid": "Следит за тем, чтобы на заводе или в городе не отключалось электричество и тепло.",
+        "riasec_profile": {
+            "R": 0.74,
+            "I": 0.87,
+            "A": 0.32,
+            "S": 0.29,
+            "E": 0.44,
+            "C": 0.61
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 54500
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 32,
+                "salary_median_rub": 54500,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_020",
+                "name": "Схемотехника",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_014",
+                "name": "Электроэнергетика и электротехника",
+                "organization": "УрГПУ (Уральский государственный педагогический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_008",
+                "title": "Электромонтаж и схемотехника",
+                "organization": "УГК им. Ползунова (Уральский государственный колледж)",
+                "format": "очно",
+                "description": "Сборка электрических цепей"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_009",
+        "name": "Электромонтер",
+        "industry": "Энергетика",
+        "description_for_kid": "Чинит и подключает электрические провода, щитки и оборудование.",
+        "riasec_profile": {
+            "R": 1.0,
+            "I": 0.38,
+            "A": 0.18,
+            "S": 0.18,
+            "E": 0.26,
+            "C": 0.6
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 55000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 55000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_020",
+                "name": "Схемотехника",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_024",
+                "name": "Электроника, радиотехника и системы связи",
+                "organization": "УрТИСИ СибГУТИ (Уральский технический институт связи и информатики)",
+                "level": "бакалавриат",
+                "fit_level": "смежная"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_008",
+                "title": "Электромонтаж и схемотехника",
+                "organization": "УГК им. Ползунова (Уральский государственный колледж)",
+                "format": "очно",
+                "description": "Сборка электрических цепей"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_010",
+        "name": "Разработчик ПО",
+        "industry": "IT",
+        "description_for_kid": "Пишет код, который превращается в сайты, игры или банковские приложения.",
+        "riasec_profile": {
+            "R": 0.56,
+            "I": 0.84,
+            "A": 0.32,
+            "S": 0.27,
+            "E": 0.27,
+            "C": 0.78
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 55000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 96,
+                "salary_median_rub": 55000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_002",
+                "name": "Программирование",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_017",
+                "name": "Логика и алгоритмы",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_018",
+                "name": "Работа с базами данных",
+                "type": "digital",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_003",
+                "name": "Работа в команде",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_001",
+                "name": "Прикладная информатика",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_003",
+                "name": "Математическое обеспечение и администрирование информационных систем",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_004",
+                "name": "Физика",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "level": "бакалавриат",
+                "fit_level": "смежная"
+            },
+            {
+                "program_id": "prog_009",
+                "name": "Информатика и вычислительная техника",
+                "organization": "УрГЭУ (Уральский государственный экономический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_023",
+                "name": "Информатика и вычислительная техника",
+                "organization": "УрТИСИ СибГУТИ (Уральский технический институт связи и информатики)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_002",
+                "title": "Тест-драйв УрФУ: Математика и IT",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Мастер-классы по микроэлектронике и шифрованию"
+            },
+            {
+                "trial_id": "trial_004",
+                "title": "Промробо-квантум",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Сборка и программирование роботов"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_011",
+        "name": "Аналитик данных",
+        "industry": "IT",
+        "description_for_kid": "Ищет закономерности в больших таблицах с цифрами и строит прогнозы.",
+        "riasec_profile": {
+            "R": 0.31,
+            "I": 1.0,
+            "A": 0.37,
+            "S": 0.24,
+            "E": 0.24,
+            "C": 0.77
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 67500
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 16,
+                "salary_median_rub": 67500,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_002",
+                "name": "Программирование",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_004",
+                "name": "Аналитическое мышление",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_018",
+                "name": "Работа с базами данных",
+                "type": "digital",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_001",
+                "name": "Прикладная информатика",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "level": "бакалавриат",
+                "fit_level": "смежная"
+            },
+            {
+                "program_id": "prog_002",
+                "name": "Математика и компьютерные науки",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_012",
+        "name": "Тестировщик (QA)",
+        "industry": "IT",
+        "description_for_kid": "Ищет ошибки и баги в программах до того, как ими начнут пользоваться люди.",
+        "riasec_profile": {
+            "R": 0.54,
+            "I": 0.82,
+            "A": 0.24,
+            "S": 0.22,
+            "E": 0.22,
+            "C": 0.81
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 60000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 8,
+                "salary_median_rub": 60000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_002",
+                "name": "Программирование",
+                "type": "digital",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_013",
+        "name": "Сисадмин",
+        "industry": "IT",
+        "description_for_kid": "Настраивает компьютеры, серверы и следит, чтобы сеть в офисе работала без сбоев.",
+        "riasec_profile": {
+            "R": 0.78,
+            "I": 0.66,
+            "A": 0.14,
+            "S": 0.33,
+            "E": 0.39,
+            "C": 0.78
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 47500
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 22,
+                "salary_median_rub": 47500,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_002",
+                "name": "Программирование",
+                "type": "digital",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_020",
+                "name": "Схемотехника",
+                "type": "hard",
+                "importance": 3
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_014",
+        "name": "Специалист по кибербезопасности",
+        "industry": "IT",
+        "description_for_kid": "Защищает данные компаний от хакеров и взломов.",
+        "riasec_profile": {
+            "R": 0.4,
+            "I": 0.78,
+            "A": 0.19,
+            "S": 0.29,
+            "E": 0.4,
+            "C": 0.88
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 31157
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 2,
+                "salary_median_rub": 31157,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_002",
+                "name": "Программирование",
+                "type": "digital",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_017",
+                "name": "Логика и алгоритмы",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_030",
+                "name": "Критическое мышление",
+                "type": "soft",
+                "importance": 5
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_002",
+                "title": "Тест-драйв УрФУ: Математика и IT",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Мастер-классы по микроэлектронике и шифрованию"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_015",
+        "name": "Веб-разработчик",
+        "industry": "IT",
+        "description_for_kid": "Создает сайты: либо то, что видит пользователь (красота), либо то, что работает внутри.",
+        "riasec_profile": {
+            "R": 0.47,
+            "I": 0.74,
+            "A": 0.37,
+            "S": 0.29,
+            "E": 0.29,
+            "C": 0.83
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 0
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 0,
+                "salary_median_rub": 0,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_002",
+                "name": "Программирование",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_017",
+                "name": "Логика и алгоритмы",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_027",
+                "name": "Графический дизайн",
+                "type": "digital",
+                "importance": 3
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_028",
+                "name": "Веб-разработка",
+                "organization": "Екатеринбургский монтажный колледж",
+                "level": "СПО",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_005",
+                "title": "VR/AR-квантум",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Создание виртуальной реальности"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_016",
+        "name": "Инженер-робототехник",
+        "industry": "IT",
+        "description_for_kid": "Собирает и программирует роботов, которые работают на заводах или помогают людям.",
+        "riasec_profile": {
+            "R": 0.8,
+            "I": 0.9,
+            "A": 0.4,
+            "S": 0.2,
+            "E": 0.4,
+            "C": 0.6
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 54500
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 4,
+                "salary_median_rub": 54500,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_002",
+                "name": "Программирование",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_010",
+                "name": "3D-моделирование",
+                "type": "digital",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_004",
+                "title": "Промробо-квантум",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Сборка и программирование роботов"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_018",
+        "name": "Врач-терапевт",
+        "industry": "Медицина",
+        "description_for_kid": "Осматривает пациентов, ставит диагноз и назначает лечение.",
+        "riasec_profile": {
+            "R": 0.54,
+            "I": 0.87,
+            "A": 0.21,
+            "S": 0.89,
+            "E": 0.33,
+            "C": 0.56
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 70000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 70000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_021",
+                "name": "Биология и анатомия",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_013",
+                "name": "Медицинская этика",
+                "type": "soft",
+                "importance": 5
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_015",
+                "name": "Лечебное дело",
+                "organization": "УГМУ (Уральский государственный медицинский университет)",
+                "level": "специалитет",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_007",
+                "title": "Медицинский предуниверсарий",
+                "organization": "Свердловский областной медицинский колледж",
+                "format": "очно",
+                "description": "Базовые врачебные навыки"
+            },
+            {
+                "trial_id": "trial_012",
+                "title": "Экскурсия в лабораторию нейротехнологий",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Исследования мозга и нервной системы"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_019",
+        "name": "Хирург",
+        "industry": "Медицина",
+        "description_for_kid": "Проводит операции, чтобы вылечить внутренние болезни или травмы.",
+        "riasec_profile": {
+            "R": 0.78,
+            "I": 0.96,
+            "A": 0.25,
+            "S": 0.7,
+            "E": 0.34,
+            "C": 0.61
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 80000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 80000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_021",
+                "name": "Биология и анатомия",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_034",
+                "name": "Навыки первой помощи",
+                "type": "hard",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_016",
+                "name": "Педиатрия",
+                "organization": "УГМУ (Уральский государственный медицинский университет)",
+                "level": "специалитет",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_020",
+        "name": "Медсестра",
+        "industry": "Медицина",
+        "description_for_kid": "Выполняет назначения врача, делает уколы, ухаживает за больными.",
+        "riasec_profile": {
+            "R": 0.52,
+            "I": 0.69,
+            "A": 0.19,
+            "S": 0.8,
+            "E": 0.33,
+            "C": 0.65
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 45000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 24,
+                "salary_median_rub": 45000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_034",
+                "name": "Навыки первой помощи",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_013",
+                "name": "Медицинская этика",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_007",
+                "title": "Медицинский предуниверсарий",
+                "organization": "Свердловский областной медицинский колледж",
+                "format": "очно",
+                "description": "Базовые врачебные навыки"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_021",
+        "name": "Стоматолог",
+        "industry": "Медицина",
+        "description_for_kid": "Лечит зубы, ставит пломбы и исправляет прикус.",
+        "riasec_profile": {
+            "R": 0.76,
+            "I": 0.77,
+            "A": 0.16,
+            "S": 0.61,
+            "E": 0.28,
+            "C": 0.55
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 65500
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 65500,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_021",
+                "name": "Биология и анатомия",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_017",
+                "name": "Стоматология",
+                "organization": "УГМУ (Уральский государственный медицинский университет)",
+                "level": "специалитет",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_022",
+        "name": "Фармацевт",
+        "industry": "Медицина",
+        "description_for_kid": "Разбирается в лекарствах, консультирует людей в аптеке и готовит некоторые микстуры.",
+        "riasec_profile": {
+            "R": 0.29,
+            "I": 0.71,
+            "A": 0.24,
+            "S": 0.53,
+            "E": 0.35,
+            "C": 0.9
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 35,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_022",
+                "name": "Химия",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_018",
+                "name": "Фармация",
+                "organization": "УГМУ (Уральский государственный медицинский университет)",
+                "level": "специалитет",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_023",
+        "name": "Лаборант",
+        "industry": "Медицина",
+        "description_for_kid": "Берет анализы и исследует их под микроскопом или с помощью приборов.",
+        "riasec_profile": {
+            "R": 0.6,
+            "I": 0.8,
+            "A": 0.2,
+            "S": 0.4,
+            "E": 0.2,
+            "C": 0.8
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 40000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 76,
+                "salary_median_rub": 40000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_022",
+                "name": "Химия",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_011",
+                "title": "Определение влаги в угле",
+                "organization": "УГК им. Ползунова (Уральский государственный колледж)",
+                "format": "очно",
+                "description": "Лабораторная проба по химическому анализу"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_024",
+        "name": "Психолог",
+        "industry": "Медицина",
+        "description_for_kid": "Помогает людям разобраться в своих эмоциях и проблемах через разговоры.",
+        "riasec_profile": {
+            "R": 0.15,
+            "I": 0.79,
+            "A": 0.43,
+            "S": 0.94,
+            "E": 0.38,
+            "C": 0.51
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 33850
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 33850,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_030",
+                "name": "Критическое мышление",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_013",
+                "name": "Медицинская этика",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_010",
+                "name": "Психология",
+                "organization": "УрГПУ (Уральский государственный педагогический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_019",
+                "name": "Клиническая психология",
+                "organization": "УГМУ (Уральский государственный медицинский университет)",
+                "level": "специалитет",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_012",
+                "title": "Экскурсия в лабораторию нейротехнологий",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Исследования мозга и нервной системы"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_025",
+        "name": "Учитель",
+        "industry": "Образование",
+        "description_for_kid": "Объясняет школьникам физику, математику или историю, проверяет домашние задания.",
+        "riasec_profile": {
+            "R": 0.36,
+            "I": 0.48,
+            "A": 0.57,
+            "S": 1.0,
+            "E": 0.37,
+            "C": 0.5
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 35000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 35000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_009",
+                "name": "Управление проектами",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 3
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_011",
+                "name": "Педагогическое образование",
+                "organization": "УрГПУ (Уральский государственный педагогический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_012",
+                "name": "Педагогическое образование (с двумя профилями подготовки)",
+                "organization": "УрГПУ (Уральский государственный педагогический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_013",
+                "name": "Организация работы с молодежью",
+                "organization": "УрГПУ (Уральский государственный педагогический университет)",
+                "level": "бакалавриат",
+                "fit_level": "смежная"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_026",
+        "name": "Воспитатель",
+        "industry": "Образование",
+        "description_for_kid": "Играет с малышами, проводит занятия и следит, чтобы они были в безопасности.",
+        "riasec_profile": {
+            "R": 0.39,
+            "I": 0.39,
+            "A": 0.38,
+            "S": 1.0,
+            "E": 0.38,
+            "C": 0.51
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 31200
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 31200,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_005",
+                "name": "Креативность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_029",
+        "name": "Архитектор",
+        "industry": "Строительство",
+        "description_for_kid": "Придумывает внешний вид зданий и чертит планы помещений.",
+        "riasec_profile": {
+            "R": 0.74,
+            "I": 0.6,
+            "A": 0.65,
+            "S": 0.36,
+            "E": 0.49,
+            "C": 0.59
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 40000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 16,
+                "salary_median_rub": 40000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_010",
+                "name": "3D-моделирование",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_016",
+                "name": "Пространственное мышление",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_005",
+                "name": "Креативность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_020",
+                "name": "Архитектура",
+                "organization": "УрГАХУ (Уральский государственный архитектурно-художественный университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            },
+            {
+                "program_id": "prog_021",
+                "name": "Градостроительство",
+                "organization": "УрГАХУ (Уральский государственный архитектурно-художественный университет)",
+                "level": "бакалавриат",
+                "fit_level": "смежная"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_030",
+        "name": "Инженер-строитель",
+        "industry": "Строительство",
+        "description_for_kid": "Руководит стройкой, следит за тем, чтобы дом строился по чертежам и был прочным.",
+        "riasec_profile": {
+            "R": 0.8,
+            "I": 0.7,
+            "A": 0.3,
+            "S": 0.4,
+            "E": 0.6,
+            "C": 0.7
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 4,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_009",
+                "name": "Управление проектами",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_016",
+                "name": "Пространственное мышление",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_027",
+                "name": "Строительство и эксплуатация зданий и сооружений",
+                "organization": "Екатеринбургский монтажный колледж",
+                "level": "СПО",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_032",
+        "name": "Геодезист",
+        "industry": "Строительство",
+        "description_for_kid": "Измеряет землю с помощью приборов, чтобы понять, где и как строить дороги или дома.",
+        "riasec_profile": {
+            "R": 0.73,
+            "I": 0.69,
+            "A": 0.25,
+            "S": 0.24,
+            "E": 0.28,
+            "C": 0.78
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 31157
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 7,
+                "salary_median_rub": 31157,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_016",
+                "name": "Пространственное мышление",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_033",
+        "name": "UX/UI-дизайнер",
+        "industry": "Дизайн",
+        "description_for_kid": "Придумывает, как сделать сайт или приложение удобным и красивым.",
+        "riasec_profile": {
+            "R": 0.37,
+            "I": 0.7,
+            "A": 0.64,
+            "S": 0.32,
+            "E": 0.45,
+            "C": 0.63
+        },
+        "current_market_state": {
+            "demand_level": "средний",
+            "salary_median_rub": 49310
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 15,
+                "salary_median_rub": 49310,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_027",
+                "name": "Графический дизайн",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_005",
+                "name": "Креативность",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_022",
+                "name": "Дизайн (Графический дизайн)",
+                "organization": "УрГАХУ (Уральский государственный архитектурно-художественный университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_005",
+                "title": "VR/AR-квантум",
+                "organization": "УПК-МЦК (Уральский политехнический колледж)",
+                "format": "очно",
+                "description": "Создание виртуальной реальности"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_034",
+        "name": "Графический дизайнер",
+        "industry": "Дизайн",
+        "description_for_kid": "Рисует логотипы, баннеры, иллюстрации в специальных программах.",
+        "riasec_profile": {
+            "R": 0.46,
+            "I": 0.4,
+            "A": 1.0,
+            "S": 0.33,
+            "E": 0.52,
+            "C": 0.54
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 49310
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 3,
+                "salary_median_rub": 49310,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_027",
+                "name": "Графический дизайн",
+                "type": "digital",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_005",
+                "name": "Креативность",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 3
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_013",
+                "title": "Разработка фирменного стиля",
+                "organization": "УГК им. Ползунова (Уральский государственный колледж)",
+                "format": "очно",
+                "description": "Создание логотипа и брендбука"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_037",
+        "name": "Менеджер по продажам",
+        "industry": "Торговля и услуги",
+        "description_for_kid": "Общается с клиентами, рассказывает им о товаре и закрывает сделки.",
+        "riasec_profile": {
+            "R": 0.16,
+            "I": 0.28,
+            "A": 0.21,
+            "S": 0.53,
+            "E": 0.96,
+            "C": 0.73
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 70000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 70000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_015",
+                "name": "Продажи",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_006",
+                "name": "Коммуникация",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_007",
+                "name": "Гостиничное дело",
+                "organization": "УрГЭУ (Уральский государственный экономический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_010",
+                "title": "Профпробы «Открой свое дело»",
+                "organization": "УрГЭУ (Уральский государственный экономический университет)",
+                "format": "очно",
+                "description": "Разработка и презентация бизнес-идеи"
+            },
+            {
+                "trial_id": "trial_014",
+                "title": "Мастер-класс по маркетингу «Билет в топ»",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Разбор кейсов и современных маркетинговых инструментов"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_038",
+        "name": "Маркетолог",
+        "industry": "Торговля и услуги",
+        "description_for_kid": "Придумывает, как рекламировать продукт, чтобы его захотели купить.",
+        "riasec_profile": {
+            "R": 0.28,
+            "I": 0.63,
+            "A": 0.55,
+            "S": 0.52,
+            "E": 0.82,
+            "C": 0.66
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 40000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 5,
+                "salary_median_rub": 40000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_015",
+                "name": "Продажи",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_004",
+                "name": "Аналитическое мышление",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_005",
+                "name": "Креативность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_013",
+                "title": "Разработка фирменного стиля",
+                "organization": "УГК им. Ползунова (Уральский государственный колледж)",
+                "format": "очно",
+                "description": "Создание логотипа и брендбука"
+            },
+            {
+                "trial_id": "trial_014",
+                "title": "Мастер-класс по маркетингу «Билет в топ»",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Разбор кейсов и современных маркетинговых инструментов"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_039",
+        "name": "Предприниматель",
+        "industry": "Торговля и услуги",
+        "description_for_kid": "Создает свой бизнес, нанимает людей, рискует деньгами и зарабатывает прибыль.",
+        "riasec_profile": {
+            "R": 0.32,
+            "I": 0.68,
+            "A": 0.48,
+            "S": 0.62,
+            "E": 0.99,
+            "C": 0.59
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_026",
+                "name": "Лидерство",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_009",
+                "name": "Управление проектами",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_015",
+                "name": "Продажи",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_008",
+                "name": "Государственное и муниципальное управление",
+                "organization": "УрГЭУ (Уральский государственный экономический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_010",
+                "title": "Профпробы «Открой свое дело»",
+                "organization": "УрГЭУ (Уральский государственный экономический университет)",
+                "format": "очно",
+                "description": "Разработка и презентация бизнес-идеи"
+            },
+            {
+                "trial_id": "trial_015",
+                "title": "Энергетический квест и триатлон",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Моделирование бизнес-процессов и логистики"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_041",
+        "name": "Водитель",
+        "industry": "Транспорт и логистика",
+        "description_for_kid": "Перевозит грузы на фурах или пассажиров на автобусах.",
+        "riasec_profile": {
+            "R": 0.87,
+            "I": 0.2,
+            "A": 0.14,
+            "S": 0.3,
+            "E": 0.21,
+            "C": 0.5
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_014",
+                "name": "Вождение",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_019",
+                "name": "Знание устройства автомобиля",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_024",
+                "name": "Стрессоустойчивость",
+                "type": "soft",
+                "importance": 5
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_044",
+        "name": "Бухгалтер",
+        "industry": "Финансы",
+        "description_for_kid": "Считает зарплаты, налоги и ведет учет доходов и расходов компании.",
+        "riasec_profile": {
+            "R": 0.16,
+            "I": 0.51,
+            "A": 0.16,
+            "S": 0.3,
+            "E": 0.55,
+            "C": 1.0
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 45000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 45000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_018",
+                "name": "Работа с базами данных",
+                "type": "digital",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_005",
+                "name": "Бизнес-информатика",
+                "organization": "УрГЭУ (Уральский государственный экономический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_045",
+        "name": "Финансовый аналитик",
+        "industry": "Финансы",
+        "description_for_kid": "Анализирует акции, бизнес-планы и решает, куда выгоднее вложить деньги.",
+        "riasec_profile": {
+            "R": 0.2,
+            "I": 0.8,
+            "A": 0.3,
+            "S": 0.3,
+            "E": 0.7,
+            "C": 0.85
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 2,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_004",
+                "name": "Аналитическое мышление",
+                "type": "soft",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_008",
+                "name": "Математика",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_018",
+                "name": "Работа с базами данных",
+                "type": "digital",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": [
+            {
+                "trial_id": "trial_015",
+                "title": "Энергетический квест и триатлон",
+                "organization": "УрФУ (Уральский федеральный университет)",
+                "format": "очно",
+                "description": "Моделирование бизнес-процессов и логистики"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_049",
+        "name": "Повар",
+        "industry": "Торговля и услуги",
+        "description_for_kid": "Готовит блюда по рецептам, придумывает новые вкусы.",
+        "riasec_profile": {
+            "R": 0.83,
+            "I": 0.2,
+            "A": 0.35,
+            "S": 0.4,
+            "E": 0.55,
+            "C": 0.61
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 40000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 40000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_032",
+                "name": "Кулинарные навыки",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_055",
+        "name": "Химик-технолог",
+        "industry": "Химия",
+        "description_for_kid": "Создает новые материалы, пластмассы, удобрения или лекарства в лаборатории.",
+        "riasec_profile": {
+            "R": 0.81,
+            "I": 0.95,
+            "A": 0.23,
+            "S": 0.16,
+            "E": 0.21,
+            "C": 0.71
+        },
+        "current_market_state": {
+            "demand_level": "низкий",
+            "salary_median_rub": 58000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 3,
+                "salary_median_rub": 58000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_022",
+                "name": "Химия",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_007",
+                "name": "Внимательность",
+                "type": "soft",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_006",
+                "name": "Биотехнология",
+                "organization": "УрГЭУ (Уральский государственный экономический университет)",
+                "level": "бакалавриат",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": [
+            {
+                "trial_id": "trial_011",
+                "title": "Определение влаги в угле",
+                "organization": "УГК им. Ползунова (Уральский государственный колледж)",
+                "format": "очно",
+                "description": "Лабораторная проба по химическому анализу"
+            }
+        ]
+    },
+    {
+        "profession_id": "prof_066",
+        "name": "Слесарь-ремонтник",
+        "industry": "Машиностроение",
+        "description_for_kid": "Чинит сломанное оборудование, разбирает и собирает механизмы.",
+        "riasec_profile": {
+            "R": 1.0,
+            "I": 0.38,
+            "A": 0.18,
+            "S": 0.18,
+            "E": 0.26,
+            "C": 0.6
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 50000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 50000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [],
+        "trials": []
+    },
+    {
+        "profession_id": "prof_067",
+        "name": "Сантехник",
+        "industry": "Строительство",
+        "description_for_kid": "Чинит и устанавливает трубы, краны и отопительные системы.",
+        "riasec_profile": {
+            "R": 0.98,
+            "I": 0.26,
+            "A": 0.14,
+            "S": 0.3,
+            "E": 0.2,
+            "C": 0.5
+        },
+        "current_market_state": {
+            "demand_level": "высокий",
+            "salary_median_rub": 40000
+        },
+        "vacancy_history": [
+            {
+                "date": "2026-10-20",
+                "vacancies_count": 100,
+                "salary_median_rub": 40000,
+                "source_id": "S-006"
+            }
+        ],
+        "skills": [
+            {
+                "skill_id": "skill_011",
+                "name": "Физическая выносливость",
+                "type": "hard",
+                "importance": 5
+            },
+            {
+                "skill_id": "skill_001",
+                "name": "Чтение чертежей",
+                "type": "hard",
+                "importance": 4
+            },
+            {
+                "skill_id": "skill_023",
+                "name": "Точность и аккуратность",
+                "type": "soft",
+                "importance": 4
+            }
+        ],
+        "education_programs": [
+            {
+                "program_id": "prog_029",
+                "name": "Монтаж и эксплуатация внутренних сантехнических устройств, кондиционирования воздуха",
+                "organization": "Екатеринбургский монтажный колледж",
+                "level": "СПО",
+                "fit_level": "прямая"
+            }
+        ],
+        "trials": []
+    }
+]
