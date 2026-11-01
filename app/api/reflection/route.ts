@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from "next/server";
 
 import { query } from "@/lib/db";
@@ -7,8 +6,33 @@ import { reflectionSchema } from "@/lib/schemas";
 import { requireExistingSession } from "@/lib/session";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const bodySchema = reflectionSchema.omit({ sessionId: true });
+
+export async function GET(request: NextRequest) {
+  try {
+    const session = await requireExistingSession(request);
+    if ("error" in session) {
+      return session.error;
+    }
+
+    const result = await query(
+      `SELECT id, recommendation_id, rating, comment, created_at
+       FROM reflections
+       WHERE session_id = $1
+       ORDER BY created_at DESC`,
+      [session.sessionId]
+    );
+
+    return NextResponse.json({
+      data: result.rows,
+      count: result.rowCount,
+    });
+  } catch (error) {
+    return handleError(error);
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,7 +50,6 @@ export async function POST(request: NextRequest) {
     const { recommendationId, rating, comment } = parsed.data;
     const validSessionId = session.sessionId;
 
-    // Рекомендация должна принадлежать текущей сессии.
     if (recommendationId) {
       const recommendation = await query(
         `SELECT id

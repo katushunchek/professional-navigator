@@ -12,6 +12,7 @@ Backend MVP для школьной профориентации (Екатери
 - API (см. `docs/API.md`):
   - `GET /api/health`
   - `POST /api/track/select`
+  - `GET /api/session`
   - `GET /api/diagnostic/questions`
   - `POST /api/diagnostic/submit`
   - `GET /api/diagnostic/latest`
@@ -21,7 +22,7 @@ Backend MVP для школьной профориентации (Екатери
   - `GET /api/recommendations`
   - `GET /api/trials`
   - `GET /api/professions`, `GET /api/professions/[id]`
-  - `POST /api/reflection`
+  - `POST /api/reflection`, `GET /api/reflection`
 - Zod для старых и новых payload. Идентификатор сессии — заголовок `X-Session-ID` (UUID).
 
 Статус готовности: `docs/MVP_STATUS.md`. Подготовка хостинга: `docs/DEPLOY.md`.
@@ -75,7 +76,11 @@ npm run typecheck
 npm run lint
 npm test
 npm run build
+npm run e2e:storage
+npm run e2e:mocks
 ```
+
+`e2e:storage` требует запущенный API и PostgreSQL; создаёт новые сессии и не удаляет данные. `e2e:mocks:persist` записывает 15 мок-диагностик через API; `--ai=3` вызывает GigaChat только для учеников 2, 8 и 15.
 
 Smoke API (нужен запущенный `npm run dev` и миграции):
 

@@ -13,7 +13,7 @@ const diagnosticAnswerSchema = z.object({
     z.string().trim().min(1).max(1000),
     z.number().finite(),
     z.boolean(),
-    z.array(z.string().trim().min(1).max(100)).min(1).max(100),
+    z.array(z.string().trim().min(1).max(500)).min(1).max(100),
   ]),
 });
 

@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/schemas.test.ts",
+    "test": "node --experimental-strip-types --test tests/schemas.test.ts tests/mock-students.test.ts",
+    "e2e:storage": "node scripts/e2e-storage.mjs",
+    "e2e:mocks": "node scripts/run-mock-students.mjs",
+    "e2e:mocks:persist": "node scripts/run-mock-students.mjs --persist --ai=3",
     "db:migrate": "node scripts/migrate.mjs",
     "db:seed": "node scripts/seed.mjs",
     "db:seed:mocks": "node scripts/seed-mock-students.mjs"

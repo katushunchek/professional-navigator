@@ -86,6 +86,12 @@ docker compose exec app npm run db:seed
 
 `DATABASE_URL` внутри app-контейнера указывает на хост `db`, с хоста — на `localhost:5433`.
 
+Секреты (`AI_API_KEY`, пароль Postgres) только в env хоста или Docker secrets, не в образе и не в Git. `.env.local` в `.gitignore`.
+
+После старта контейнера миграции **не** выполняются сами: их нужно вызвать отдельно (`docker compose exec app npm run db:migrate`). Приложение без миграции 003 не сохранит уточнения и `pathways`.
+
+Проверка после выката (делает инфраструктура, не этот репозиторий): `GET /api/health`, `GET /api/professions`, затем один generate на тестовой сессии.
+
 ## 5. Чего эта инструкция не делает
 
 - Не деплоит проект.
