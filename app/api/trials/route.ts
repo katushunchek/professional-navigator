@@ -1,7 +1,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import { handleError } from "@/lib/http";
+import { handleError, jsonError } from "@/lib/http";
 
 export const runtime = "nodejs";
 
@@ -21,10 +21,7 @@ export async function GET(request: NextRequest) {
       rawLimit !== null &&
       rawLimit.trim() === ""
     ) {
-      return NextResponse.json(
-        { error: "limit must be an integer between 1 and 100" },
-        { status: 400 }
-      );
+      return jsonError("limit must be an integer between 1 and 100", 400);
     }
 
     if (
@@ -32,10 +29,7 @@ export async function GET(request: NextRequest) {
       parsedLimit < 1 ||
       parsedLimit > 100
     ) {
-      return NextResponse.json(
-        { error: "limit must be an integer between 1 and 100" },
-        { status: 400 }
-      );
+      return jsonError("limit must be an integer between 1 and 100", 400);
     }
 
     const limit = parsedLimit;

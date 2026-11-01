@@ -1,63 +1,50 @@
-
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
-import { pool, query } from "@/lib/db";
+import {
+  saveClarificationAnswers,
+  validateClarificationAnswers,
+} from "@/lib/clarification";
+import { isMissingSchemaError, pool, query } from "@/lib/db";
 import { handleError, jsonError } from "@/lib/http";
 import { diagnosticSchema } from "@/lib/schemas";
+import { readSessionId } from "@/lib/session";
 
 export const runtime = "nodejs";
 
-const sessionIdSchema = z.string().uuid();
-
-// sessionId теперь передаётся через HTTP-заголовок,
-// поэтому убираем его из схемы JSON-запроса.
 const requestBodySchema = diagnosticSchema.omit({
   sessionId: true,
 });
 
 export async function POST(request: NextRequest) {
   try {
-    // 1. Проверяем наличие X-Session-ID
-    const sessionId = request.headers.get("X-Session-ID");
-
-    if (!sessionId) {
-      return jsonError("X-Session-ID header is required", 401);
+    const header = readSessionId(request);
+    if ("error" in header) {
+      return header.error;
     }
 
-    // 2. Проверяем формат UUID
-    const sessionCheck = sessionIdSchema.safeParse(sessionId);
-
-    if (!sessionCheck.success) {
-      return jsonError("X-Session-ID must be a valid UUID", 400);
-    }
-
-    // 3. Валидируем ответы диагностики
-    const parsed = requestBodySchema.safeParse(
-      await request.json()
-    );
-
+    const parsed = requestBodySchema.safeParse(await request.json());
     if (!parsed.success) {
       return handleError(parsed.error);
     }
 
-    const { answers } = parsed.data;
-    const validSessionId = sessionCheck.data;
+    const { answers, clarificationAnswers } = parsed.data;
+    const validSessionId = header.sessionId;
 
-    // 4. Проверяем существование сессии
-    const session = await query(
-      "SELECT id FROM sessions WHERE id = $1",
-      [validSessionId]
-    );
-
-    if (session.rowCount === 0) {
-      return jsonError(
-        "Session not found. Select a track first.",
-        404
-      );
+    if (clarificationAnswers) {
+      const clarificationErrors = validateClarificationAnswers(clarificationAnswers);
+      if (clarificationErrors.length > 0) {
+        return jsonError("Invalid clarification answers", 422, clarificationErrors);
+      }
     }
 
-    // 5. Сохраняем диагностику и ответы в транзакции
+    const session = await query("SELECT id FROM sessions WHERE id = $1", [
+      validSessionId,
+    ]);
+
+    if (session.rowCount === 0) {
+      return jsonError("Session not found. Select a track first.", 404);
+    }
+
     const client = await pool.connect();
 
     try {
@@ -77,12 +64,17 @@ export async function POST(request: NextRequest) {
           `INSERT INTO diagnostic_answers
            (diagnostic_id, question_id, answer)
            VALUES ($1, $2, $3::jsonb)`,
-          [
-            diagnosticId,
-            item.questionId,
-            JSON.stringify(item.answer),
-          ]
+          [diagnosticId, item.questionId, JSON.stringify(item.answer)]
         );
+      }
+
+      let clarificationId: string | null = null;
+      if (clarificationAnswers) {
+        clarificationId = await saveClarificationAnswers(client, {
+          sessionId: validSessionId,
+          diagnosticId,
+          answers: clarificationAnswers,
+        });
       }
 
       await client.query("COMMIT");
@@ -91,22 +83,27 @@ export async function POST(request: NextRequest) {
         {
           diagnosticId,
           savedAnswers: answers.length,
+          clarificationId,
+          savedClarificationAnswers: clarificationAnswers?.length ?? 0,
           status: "submitted",
         },
         { status: 201 }
       );
-
     } catch (error) {
       await client.query("ROLLBACK");
       throw error;
-
     } finally {
       client.release();
     }
-
   } catch (error) {
     if (error instanceof SyntaxError) {
       return jsonError("Request body must be valid JSON");
+    }
+    if (isMissingSchemaError(error)) {
+      return jsonError(
+        "Database schema is outdated. Run npm run db:migrate",
+        503
+      );
     }
 
     return handleError(error);

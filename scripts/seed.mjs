@@ -3,6 +3,10 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
+import { loadLocalEnv } from "./load-env.mjs";
+
+loadLocalEnv();
+
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   ".."

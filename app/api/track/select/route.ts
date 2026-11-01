@@ -1,42 +1,22 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
 import { query } from "@/lib/db";
 import { handleError, jsonError } from "@/lib/http";
 import { trackSchema } from "@/lib/schemas";
+import { readSessionId } from "@/lib/session";
 
 export const runtime = "nodejs";
 
-const sessionIdSchema = z.string().uuid();
-
-// Убираем sessionId из схемы тела запроса.
-// Теперь он приходит только через X-Session-ID.
 const requestBodySchema = trackSchema.omit({
   sessionId: true,
 });
 
 export async function POST(request: NextRequest) {
   try {
-    // 1. Получаем идентификатор из заголовка
-    const sessionId = request.headers.get("X-Session-ID");
-
-    // 2. Заголовок отсутствует
-    if (!sessionId) {
-      return NextResponse.json(
-        { error: "X-Session-ID header is required" },
-        { status: 401 }
-      );
-    }
-
-    // 3. Проверяем формат UUID
-    const sessionCheck = sessionIdSchema.safeParse(sessionId);
-
-    if (!sessionCheck.success) {
-      return NextResponse.json(
-        { error: "X-Session-ID must be a valid UUID" },
-        { status: 400 }
-      );
+    const header = readSessionId(request);
+    if ("error" in header) {
+      return header.error;
     }
 
     // 4. Проверяем тело запроса
@@ -65,13 +45,12 @@ export async function POST(request: NextRequest) {
         track_type = EXCLUDED.track_type,
         updated_at = now()
       `,
-      [sessionCheck.data, trackType]
+      [header.sessionId, trackType]
     );
 
-    // 6. Возвращаем 200 OK
     return NextResponse.json(
       {
-        sessionId: sessionCheck.data,
+        sessionId: header.sessionId,
         trackType,
         status: "selected"
       },

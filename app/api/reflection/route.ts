@@ -1,28 +1,20 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
 import { query } from "@/lib/db";
 import { handleError, jsonError } from "@/lib/http";
 import { reflectionSchema } from "@/lib/schemas";
+import { requireExistingSession } from "@/lib/session";
 
 export const runtime = "nodejs";
 
-const sessionIdSchema = z.string().uuid();
 const bodySchema = reflectionSchema.omit({ sessionId: true });
 
 export async function POST(request: NextRequest) {
   try {
-    const sessionId = request.headers.get("X-Session-ID");
-
-    if (!sessionId) {
-      return jsonError("X-Session-ID header is required", 401);
-    }
-
-    const sessionCheck = sessionIdSchema.safeParse(sessionId);
-
-    if (!sessionCheck.success) {
-      return jsonError("X-Session-ID must be a valid UUID", 400);
+    const session = await requireExistingSession(request);
+    if ("error" in session) {
+      return session.error;
     }
 
     const parsed = bodySchema.safeParse(await request.json());
@@ -32,16 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { recommendationId, rating, comment } = parsed.data;
-    const validSessionId = sessionCheck.data;
-
-    const session = await query(
-      "SELECT id FROM sessions WHERE id = $1",
-      [validSessionId]
-    );
-
-    if (session.rowCount === 0) {
-      return jsonError("Session not found", 404);
-    }
+    const validSessionId = session.sessionId;
 
     // Рекомендация должна принадлежать текущей сессии.
     if (recommendationId) {
