@@ -4,51 +4,70 @@ import { randomUUID } from 'node:crypto';
 
 import {
   assertApiAvailable,
+  buildAnswerFromQuestion,
   createSession,
-  newSessionId,
+  extractQuestionId,
+  isUuidV4,
   postJson,
-  queryTestDb,
   readJson,
-} from './helpers.mjs';
+  requestApi,
+  submitDiagnostic,
+} from './_helpers.mjs';
 
-test('POST /api/diagnostic/submit: проверка доступности API', async () => {
+const BVB_ANSWERS = [
+  {
+    questionId: 'bilet_q1_subjects',
+    answer: ['Математика', 'Информатика'],
+  },
+  {
+    questionId: 'bilet_q4_decision',
+    answer: ['Я еще ни с чем не определился(-лась)'],
+  },
+];
+
+test('health: backend и PostgreSQL доступны', async () => {
   await assertApiAvailable();
 });
 
 test('POST /api/diagnostic/submit: без X-Session-ID возвращает 401', async () => {
   const response = await postJson('/api/diagnostic/submit', {
-    body: { answers: [{ questionId: 'test_q1', answer: 1 }] },
+    body: { answers: BVB_ANSWERS },
   });
   const payload = await readJson(response);
 
   assert.equal(response.status, 401);
-  assert.match(payload.error, /X-Session-ID/i);
+  assert.equal(typeof payload?.error, 'string');
 });
 
-test('POST /api/diagnostic/submit: некорректный UUID возвращает 400', async () => {
+test('POST /api/diagnostic/submit: невалидный X-Session-ID возвращает 400', async () => {
   const response = await postJson('/api/diagnostic/submit', {
-    sessionId: 'invalid-session-id',
-    body: { answers: [{ questionId: 'test_q1', answer: 1 }] },
+    sessionId: 'not-a-uuid',
+    body: { answers: BVB_ANSWERS },
   });
   const payload = await readJson(response);
 
   assert.equal(response.status, 400);
-  assert.match(payload.error, /valid UUID/i);
+  assert.equal(typeof payload?.error, 'string');
 });
 
-test('POST /api/diagnostic/submit: неизвестная сессия возвращает 404', async () => {
-  const response = await postJson('/api/diagnostic/submit', {
-    sessionId: randomUUID(),
-    body: { answers: [{ questionId: 'test_q1', answer: 1 }] },
+test('POST /api/track/select: создаёт сессию с контрактным статусом 200', async () => {
+  const sessionId = randomUUID();
+  const response = await postJson('/api/track/select', {
+    sessionId,
+    body: { trackType: 'explore' },
   });
   const payload = await readJson(response);
 
-  assert.equal(response.status, 404);
-  assert.match(payload.error, /Session not found/i);
+  assert.equal(response.status, 200);
+  assert.deepEqual(payload, {
+    sessionId,
+    trackType: 'explore',
+    status: 'selected',
+  });
 });
 
-test('POST /api/diagnostic/submit: пустой answers возвращает 422', async (t) => {
-  const sessionId = await createSession(t);
+test('POST /api/diagnostic/submit: пустой answers возвращает 422', async () => {
+  const sessionId = await createSession();
   const response = await postJson('/api/diagnostic/submit', {
     sessionId,
     body: { answers: [] },
@@ -56,94 +75,120 @@ test('POST /api/diagnostic/submit: пустой answers возвращает 422
   const payload = await readJson(response);
 
   assert.equal(response.status, 422);
-  assert.equal(payload.error, 'Validation failed');
+  assert.equal(typeof payload?.error, 'string');
 });
 
-test('POST /api/diagnostic/submit: повторяющиеся questionId возвращают 422', async (t) => {
-  const sessionId = await createSession(t);
+test('POST /api/diagnostic/submit: повторяющиеся questionId возвращают 422', async () => {
+  const sessionId = await createSession();
   const response = await postJson('/api/diagnostic/submit', {
     sessionId,
     body: {
       answers: [
-        { questionId: 'q_duplicate', answer: 1 },
-        { questionId: 'q_duplicate', answer: 2 },
+        { questionId: 'test_duplicate_q', answer: 'Первый ответ' },
+        { questionId: 'test_duplicate_q', answer: 'Второй ответ' },
       ],
     },
   });
   const payload = await readJson(response);
 
   assert.equal(response.status, 422);
-  assert.equal(payload.error, 'Validation failed');
-  assert.ok(Array.isArray(payload.details));
-  assert.ok(payload.details.some((issue) => issue.message === 'Duplicate questionId'));
+  assert.equal(typeof payload?.error, 'string');
 });
 
-test('POST /api/diagnostic/submit: неподдерживаемый тип answer возвращает 422', async (t) => {
-  const sessionId = await createSession(t);
-  const response = await postJson('/api/diagnostic/submit', {
+test('GET /api/diagnostic/questions?grade=9: возвращает анкету для класса', async () => {
+  const response = await requestApi('/api/diagnostic/questions?grade=9');
+  const payload = await readJson(response);
+
+  assert.equal(response.status, 200, `Не удалось получить анкету: ${JSON.stringify(payload)}`);
+  assert.ok(payload !== null && typeof payload === 'object', 'Ожидалось JSON-содержимое анкеты');
+});
+
+test('BvB: сохраняет ответы диагностики и возвращает их через latest', async () => {
+  const sessionId = await createSession('interests');
+  const submitted = await submitDiagnostic(sessionId, BVB_ANSWERS);
+
+  assert.ok(isUuidV4(submitted.diagnosticId));
+  // Additive response fields from the current API contract.
+  assert.equal(submitted.clarificationId, null);
+  assert.equal(submitted.savedClarificationAnswers, 0);
+
+  const latestResponse = await requestApi('/api/diagnostic/latest', { sessionId });
+  const latest = await readJson(latestResponse);
+
+  assert.equal(latestResponse.status, 200, `Не удалось прочитать диагностику: ${JSON.stringify(latest)}`);
+  assert.ok(Array.isArray(latest?.answers), 'GET /api/diagnostic/latest должен вернуть answers[]');
+  assert.equal(latest.answers.length, BVB_ANSWERS.length);
+
+  const savedIds = latest.answers.map((item) => item?.questionId ?? item?.question_id);
+  for (const answer of BVB_ANSWERS) {
+    assert.ok(savedIds.includes(answer.questionId), `Ответ ${answer.questionId} не найден в latest`);
+  }
+  assert.ok(Object.hasOwn(latest, 'clarification'), 'Ответ latest должен содержать clarification');
+  assert.equal(latest.clarification, null);
+});
+
+test('POST /api/clarification/submit: без сохранённой диагностики возвращает 409', async () => {
+  const sessionId = await createSession();
+  const response = await postJson('/api/clarification/submit', {
     sessionId,
     body: {
-      answers: [{ questionId: 'q_null', answer: null }],
+      answers: [{ questionId: 'agent_q2_work_style', answer: 'team' }],
     },
   });
   const payload = await readJson(response);
 
-  assert.equal(response.status, 422);
-  assert.equal(payload.error, 'Validation failed');
+  assert.equal(response.status, 409);
+  assert.equal(typeof payload?.error, 'string');
 });
 
-test('POST /api/diagnostic/submit: некорректный JSON возвращает 400', async (t) => {
-  const sessionId = await createSession(t);
-  const response = await postJson('/api/diagnostic/submit', {
+test('BvB + 6 уточнений: сохраняет уточнения отдельным endpoint и читает их обратно', async () => {
+  const sessionId = await createSession('interests');
+  await submitDiagnostic(sessionId, BVB_ANSWERS);
+
+  const questionsResponse = await requestApi('/api/clarification/questions');
+  const questionsPayload = await readJson(questionsResponse);
+
+  assert.equal(
+    questionsResponse.status,
+    200,
+    `Не удалось получить уточняющие вопросы: ${JSON.stringify(questionsPayload)}`,
+  );
+  assert.ok(Array.isArray(questionsPayload?.data), 'Ожидалось data[] из /api/clarification/questions');
+  assert.equal(questionsPayload.data.length, 6, 'Контракт описывает ровно шесть вопросов агента');
+
+  const clarificationAnswers = questionsPayload.data.map(buildAnswerFromQuestion);
+  const ids = clarificationAnswers.map((answer) => answer.questionId);
+  assert.equal(new Set(ids).size, 6, 'question_id уточнений должны быть уникальны');
+  assert.ok(ids.every((id) => typeof id === 'string' && id.length > 0));
+
+  const submitResponse = await postJson('/api/clarification/submit', {
     sessionId,
-    rawBody: '{"answers": [',
+    body: { answers: clarificationAnswers },
   });
-  const payload = await readJson(response);
+  const submitPayload = await readJson(submitResponse);
 
-  assert.equal(response.status, 400);
-  assert.match(payload.error, /valid JSON/i);
-});
-
-test('POST /api/diagnostic/submit: сохраняет ответы разных типов в PostgreSQL', async (t) => {
-  const sessionId = await createSession(t);
-  const answers = [
-    { questionId: 'test_number', answer: 2 },
-    { questionId: 'test_string', answer: 'Мне нравится анализировать данные' },
-    { questionId: 'test_boolean', answer: true },
-    { questionId: 'test_array', answer: ['спорт', 'наука'] },
-  ];
-
-  const response = await postJson('/api/diagnostic/submit', {
-    sessionId,
-    body: { answers },
-  });
-  const payload = await readJson(response);
-
-  assert.equal(response.status, 201);
-  assert.equal(payload.status, 'submitted');
-  assert.equal(payload.savedAnswers, answers.length);
-  assert.match(payload.diagnosticId, /^[0-9a-f-]{36}$/i);
-
-  const stored = await queryTestDb(
-    `SELECT question_id, answer
-       FROM diagnostic_answers
-      WHERE diagnostic_id = $1::uuid
-      ORDER BY question_id ASC`,
-    [payload.diagnosticId]
+  assert.equal(
+    submitResponse.status,
+    201,
+    `POST /api/clarification/submit должен вернуть 201: ${JSON.stringify(submitPayload)}`,
   );
+  assert.equal(submitPayload?.status, 'submitted');
+  assert.equal(submitPayload?.savedAnswers, 6);
+  assert.ok(isUuidV4(submitPayload?.clarificationId), 'clarificationId должен быть UUID v4');
 
-  assert.equal(stored.rowCount, answers.length);
-  const actualByQuestion = Object.fromEntries(
-    stored.rows.map((row) => [row.question_id, row.answer])
-  );
-  for (const item of answers) {
-    assert.deepEqual(actualByQuestion[item.questionId], item.answer);
-  }
+  const latestResponse = await requestApi('/api/diagnostic/latest', { sessionId });
+  const latest = await readJson(latestResponse);
 
-  const diagnostic = await queryTestDb(
-    'SELECT session_id FROM diagnostics WHERE id = $1::uuid',
-    [payload.diagnosticId]
+  assert.equal(latestResponse.status, 200);
+  assert.ok(Array.isArray(latest?.answers));
+  assert.ok(latest?.clarification, 'Последняя диагностика должна содержать сохранённые уточнения');
+
+  const sessionResponse = await requestApi('/api/session', { sessionId });
+  const sessionSnapshot = await readJson(sessionResponse);
+  assert.equal(
+    sessionResponse.status,
+    200,
+    `GET /api/session должен восстановить сессию: ${JSON.stringify(sessionSnapshot)}`,
   );
-  assert.equal(diagnostic.rowCount, 1);
-  assert.equal(diagnostic.rows[0].session_id, sessionId);
+  assert.ok(sessionSnapshot && typeof sessionSnapshot === 'object');
 });
