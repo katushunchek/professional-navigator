@@ -11,7 +11,7 @@ import {
   questionnaireForGrade,
 } from "../lib/catalog-data.ts";
 import { buildPathwayOptions, classifyOpportunity } from "../lib/pathways.ts";
-import { parseAIResponse, summarizeAiParseFailure } from "../lib/ai.ts";
+import { parseAIResponse, summarizeAiParseFailure } from "../lib/legacy-ai.ts";
 import {
   clarificationSubmitSchema,
   diagnosticSchema,

@@ -1,177 +1,207 @@
 # Контракт для frontend (Дима)
 
-Источник истины по полям: `docs/API.md` и Zod в `lib/schemas.ts`. Этот файл описывает **последовательность вызовов и хранение**. Никаких «согласованных» полей, которых нет в API, здесь нет.
+Источник полей — `docs/API.md` и текущие маршруты. Ниже только то, что backend уже делает.
 
-База: `http://localhost:3000` (локально). JSON UTF-8. Ошибки: `{"error":"...", "details"?: ...}`.
+База: `http://localhost:3000`. JSON, UTF-8. Ошибка: `{"error":"..."}`, иногда с `details`.
 
-## Главное правило хранения
+## Что хранить в браузере
 
-Frontend **не** хранит результаты диагностики, уточнений, рекомендаций и рефлексии как единственную копию. Браузер может держать только:
+Только:
 
-- `sessionId` (UUID, который клиент сам генерирует до первого запроса);
-- состояние UI (текущий экран, черновик формы).
+- `sessionId` — UUID, который клиент создаёт один раз до первого запроса;
+- состояние экрана и черновик формы.
 
-После перезагрузки экрана данные нужно заново прочитать с backend: `GET /api/session`.
+Диагностику, уточнения, рекомендации и рефлексию после перезагрузки читать заново: `GET /api/session`.
 
-## X-Session-ID
+Повторный визит работает, только если тот же `X-Session-ID` снова уходит на сервер. Аккаунта нет, другое устройство само эти данные не получит.
 
-- Обязателен для всех маршрутов сессии.
-- Формат: UUID RFC (Zod отклоняет невалидную версию, например `…-d011-…`).
-- Клиент генерирует UUID один раз и передаёт **тем же** значением во все запросы школьника.
-- Это **не логин**. Кто знает UUID, читает и пишет эту сессию. Отдельной авторизации нет.
+## Заголовок
 
-Нет заголовка → `401`. Не UUID → `400`. Сессия ещё не создана через track (кроме самого track) → `404`.
+`X-Session-ID` нужен всем маршрутам сессии. Это UUID. Неверный UUID — 400 `X-Session-ID must be a valid UUID`. Нет заголовка — 401 `X-Session-ID header is required`.
 
-## Последовательность экранов
+Выбор трека создаёт сессию, если UUID ещё не встречался. Остальные маршруты сессии без предварительного трека отвечают 404 `Session not found`.
 
-1. Сгенерировать `sessionId`.
-2. `POST /api/track/select` — создать сессию и сохранить трек.
-3. `GET /api/diagnostic/questions?grade=` — показать анкету (класс 1–11). Список анкет: без `grade`.
-4. `POST /api/diagnostic/submit` — сырые ответы в PostgreSQL.
-5. При необходимости `GET /api/clarification/questions`, затем `POST /api/clarification/submit` (нужна диагностика, иначе `409`).
-6. `POST /api/recommendations/generate` — GigaChat; успех только `201`.
-7. Показать `hypotheses` и `nextStepOptions`.
-8. `POST /api/reflection`.
-9. Возврат на экран: `GET /api/session` (или точечно `GET /api/diagnostic/latest`, `GET /api/recommendations`, `GET /api/reflection`).
+Это не логин. Кто знает UUID, может читать и менять сессию.
 
-Каталог без сессии: `GET /api/health`, `GET /api/professions`, `GET /api/professions/[id]`, `GET /api/trials`.
+## Чеклист школьника
 
-## Примеры
+1. Сгенерировать UUID и сохранить его в браузере.
+2. Выбрать трек и передать класс.
+3. Загрузить анкету этого класса и отправить ответы.
+4. Загрузить шесть уточнений и отправить нужные ответы.
+5. Один раз запросить генерацию и дождаться ответа.
+6. Показать гипотезы, интересы и три шага так, как их вернул API.
+7. По желанию сохранить рефлексию.
+8. При возврате на сайт прочитать `GET /api/session` с тем же заголовком.
 
-### Трек
+### 1. Трек и класс
 
-`POST /api/track/select`  
-Заголовок: `X-Session-ID: 6f9619ff-8b86-4011-a42d-00cf4fc964ff`
+`POST /api/track/select`
 
 ```json
-{ "trackType": "explore" }
+{
+  "trackType": "interests",
+  "schoolGrade": 7,
+  "confidenceBefore": "medium"
+}
 ```
 
-`200`: `{ "sessionId": "6f9619ff-8b86-4011-a42d-00cf4fc964ff", "trackType": "explore", "status": "selected" }`  
-`trackType`: `explore` | `interests` | `known_direction`.
+`trackType`: `explore`, `interests` или `known_direction`.
 
-### Диагностика
+`schoolGrade` можно не передавать. Если передан, это целое 1–11. Пропущенное поле не стирает уже сохранённый класс и не ставит 9. Неверный класс — 422, профиль не меняется.
 
-`POST /api/diagnostic/submit`
+`confidenceBefore`: `low`, `medium` или `high`. Поле необязательно. В `GET /api/session` оно не возвращается.
+
+Ответ `200`:
+
+```json
+{
+  "sessionId": "6f9619ff-8b86-4011-a42d-00cf4fc964ff",
+  "trackType": "interests",
+  "status": "selected"
+}
+```
+
+Для экрана класса: 1–4 ближе к `explore`, 5–8 к `interests`, 9–11 к `known_direction`. Сервер сам не выводит трек из класса. Класс нужен до генерации, иначе будет 409.
+
+### 2. Анкета
+
+`GET /api/diagnostic/questions?grade=7` — вопросы и варианты. Заголовок сессии не нужен. Плохой `grade` — 400, нет анкеты — 404.
+
+`POST /api/diagnostic/submit` с тем же `X-Session-ID`:
 
 ```json
 {
   "answers": [
-    { "questionId": "bilet_q1_subjects", "answer": ["Математика", "Информатика"] },
-    { "questionId": "bilet_q4_decision", "answer": ["Я еще ни с чем не определился(-лась)"] }
+    {
+      "questionId": "bilet_q1_subjects",
+      "answer": ["Математика", "Информатика"]
+    },
+    {
+      "questionId": "bilet_q6_clubs",
+      "answer": ["Основы программирования: меня привлекают алгоритмы и коды"]
+    }
   ]
 }
 ```
 
-`answer`: строка (до 1000), число, boolean или массив строк (элемент до 500 символов). 1–100 вопросов, уникальные `questionId`.
+Нужно минимум одно значение, лучше несколько осмысленных вариантов из анкеты. `answer` — строка, число, boolean или массив строк. `questionId` не повторять.
 
-`201`: `{ "diagnosticId", "savedAnswers", "clarificationId", "savedClarificationAnswers", "status": "submitted" }`
+`201`: `diagnosticId`, `savedAnswers`, `clarificationId`, `savedClarificationAnswers`, `"status": "submitted"`.
 
-Опционально в том же теле `clarificationAnswers` (1–6). Надёжнее отдельный `POST /api/clarification/submit`.
+### 3. Уточнения
 
-### Уточнения (6 вопросов агента)
+`GET /api/clarification/questions` — шесть вопросов, у каждого `question_id` и `options[].value`.
 
-`GET /api/clarification/questions` → `data[]` с `question_id`, `type`, `options[].value`.
-
-`POST /api/clarification/submit`
+`POST /api/clarification/submit` после диагностики:
 
 ```json
 {
   "answers": [
-    { "questionId": "agent_q1_likes", "answer": ["data"] },
-    { "questionId": "agent_q2_work_style", "answer": "team" }
+    { "questionId": "agent_q1_likes", "answer": ["tech", "data"] },
+    { "questionId": "agent_q2_work_style", "answer": "solo" },
+    { "questionId": "agent_q3_tasks", "answer": "analytical" }
   ]
 }
 ```
 
-Для multi_choice — массив `value` из каталога или `{ "values": ["other"], "customText": "…" }` только если `allow_custom_text`. Не подставлять произвольный текст вместо `value`.
+В массив попадают только `value` из каталога. Свой текст — `{ "values": ["other"], "customText": "свой текст" }` и только там, где у опции разрешён свободный ввод. От 1 до 6 ответов.
 
-### Рекомендации
+`201`: `clarificationId`, `savedAnswers`, `"status": "submitted"`.
 
-`POST /api/recommendations/generate` тело `{}` или `{ "clarificationAnswers": [...] }`.
+Без диагностики — 409. Чужой `questionId` или значение — 422. Для генерации уточнения желательны, но маршрут generate принимает и одну только диагностику.
 
-Успех **201**. Поля для UI:
+### 4. Генерация
 
-- `summary`, `hypotheses[]` (`professionId`, `title`, `reason`, `fitScore`, `scoreKind`)
+`POST /api/recommendations/generate`, тело `{}`.
+
+Успех только `201` и `"status": "generated"`. Ждать дольше обычного запроса: одна попытка модели ограничена примерно 8 секундами, общий срок пайплайна около 12 секунд. Отдельного HTTP 504 нет.
+
+Для UI:
+
+- `summary`
+- `hypotheses[]`: `professionId`, `title`, `reason`, `fitScore`, `scoreKind`
+- `trials`
 - `nextStep`
-- `nextStepOptions` — ровно три слота: `club`, `college`, `online_course`
+- `nextStepOptions` — ровно три типа: `club`, `college`, `online_course`
+- `interestTags`, `warnings`, `disclaimer`, `generation`
+- `unmappedHypotheses`, только если несопоставленные гипотезы есть
 
-`fitScore` — относительный порядок гипотез (`scoreKind: "relative_ranking"`). **Не** процент соответствия и не RIASEC школьника.
+`fitScore` показывать как порядок, не как проценты: 3 сильнее 2, 2 сильнее 1. Рядом есть `scoreKind: "relative_ranking"`.
 
-`nextStepOptions` элемент:
+Пример шага, который нельзя превращать в карточку колледжа:
 
 ```json
 {
   "type": "college",
-  "available": true,
-  "title": "Технология машиностроения",
-  "organization": "УПК-МЦК",
-  "url": "https://example.edu",
-  "contactEmail": null,
-  "source": "catalog",
-  "note": "Данные из проверенного каталога."
-}
-```
-
-Если данных нет:
-
-```json
-{
-  "type": "club",
   "available": false,
-  "note": "В проверенном каталоге нет кружка или секции для выбранных профессий. Контакты не выдумываются."
+  "note": "Для 5–8 классов показываем профессии без колледжей, вузов и образовательных программ."
 }
 ```
 
-При `available: false` не выдумывать кружок, колледж, курс, телефон или ссылку.
+При `available: false` нет `title`, ссылки и телефона. Текст `note` можно показать как есть. Не дорисовывать кружок, колледж или курс.
 
-Повторная загрузка: `GET /api/recommendations` → `"status": "saved"`, те же поля.
+### 5. Что показывать по классу
 
-### Рефлексия
+**1–4.** `hypotheses` пустой. Профессий и колледжей нет. Показать `interestTags`. Все три `nextStepOptions` недоступны.
+
+**5–8.** Показать гипотезы профессий и интересы. Колледж, вуз и образовательная программа в `nextStepOptions` недоступны, даже если в каталоге они есть. `trials` показать, если массив не пустой: это уже сохранённые пробные занятия с UUID.
+
+**9–11.** Показать гипотезы и доступные образовательные шаги. Слот колледжа может быть `available: true` с `title`, `organization` и `url`. Пустой слот не заполнять соседней программой.
+
+### 6. Повторное чтение
+
+`GET /api/recommendations` — та же рекомендация, `"status": "saved"`. Списки `warnings`, `interestTags`, `generation` и `disclaimer` совпадают с POST. Если рекомендации ещё нет — 404.
+
+`GET /api/session` собирает трек, профиль (`schoolGrade`, `municipality`), последнюю диагностику, уточнение, рекомендацию и рефлексии. У вложенной рекомендации нет `status` и нет `trials`. Если рекомендации не было, поле `recommendation` равно `null`, это не ошибка.
+
+Старая рекомендация, созданная до Софи, может прийти без `interestTags`, `warnings`, `disclaimer`, `generation` и `unmappedHypotheses`. Экран должен это пережить. Новая запись эти поля содержит: массив может быть пустым, `disclaimer` может быть `null`.
+
+### 7. Если модель не ответила
+
+`generation.mode: "retrieval_only"` вместе с HTTP 201 — нормальная сохранённая рекомендация. `model` тоже `retrieval_only`. В `warnings` бывает `llm_fallback_used`. Это не повод стирать экран и не повод сразу повторять POST. Показать `summary`, гипотезы и шаги, которые пришли.
+
+`embedding_unavailable_lexical_fallback` значит, что поиск шёл по тексту каталога, а не по embeddings. Для школьника это можно не выделять отдельно.
+
+HTTP 502 `AI service request failed` — рекомендация не сохранилась. Повторять запрос только по действию пользователя.
+
+409 `School grade is required before Sofi recommendations` — вернуться к шагу класса. 409 `Complete the diagnostic before generating recommendations` — сначала отправить анкету.
+
+### 8. Рефлексия
 
 `POST /api/reflection`
 
 ```json
-{ "rating": "useful", "comment": "Хочу попробовать", "recommendationId": "<uuid>" }
+{
+  "rating": "useful",
+  "comment": "Хочу попробовать",
+  "recommendationId": "05ad57a0-1863-49b5-a8a4-030d12e35ede"
+}
 ```
 
-`rating`: `useful` | `unsure` | `not_useful`. `recommendationId` должен принадлежать этой сессии.
+`rating`: `useful`, `unsure`, `not_useful`. `201` и `"status": "saved"`. Чужой `recommendationId` — 404.
 
-Чтение: `GET /api/reflection` → `{ "data": [...], "count": n }`.
+`GET /api/reflection` — список только этой сессии.
 
-### Снимок сессии
+## Ошибки на экране
 
-`GET /api/session` — трек, профиль (если есть), последняя диагностика с уточнениями, последняя рекомендация, список рефлексий.
-
-## Ошибки, которые UI должен уметь показать
-
-| HTTP | Когда |
+| HTTP | Что сказать пользователю |
 |---|---|
-| 400 | битый JSON или не UUID |
-| 401 | нет `X-Session-ID` |
-| 404 | нет сессии / нет диагностики / чужая recommendationId |
-| 409 | generate или clarification без диагностики |
-| 422 | Zod или неизвестный `questionId` уточнения |
-| 502 | GigaChat/схема модели; в теле могут быть `parseStage` и `schemaIssues` (пути, не текст модели) |
-| 503 | нет ключа AI, пустой каталог, нет миграций, БД отвалилась на health |
-| 504 | таймаут AI |
+| 400 | Проверить идентификатор сессии или формат запроса |
+| 401 | На запрос не попал `X-Session-ID` |
+| 404 | Сессия, диагностика или рекомендация не найдены. Для трека 404 не используется: новый UUID создаёт сессию |
+| 409 | Не хватает класса или ещё не отправлена диагностика |
+| 422 | Ответ не из списка или класс вне 1–11 |
+| 502 | Генерация не сохранилась |
+| 503 | Сервер или схема базы недоступны |
 
-Пока generate идёт, запрос может длиться до `AI_TIMEOUT_MS` (по умолчанию 45 с).
+Не закладывать обработку HTTP 504: текущий generate его не возвращает.
 
-## Что реализовать на frontend (без правок frontend в этом репозитории)
+Каталог без сессии: `GET /api/health`, `GET /api/professions`, `GET /api/professions/[id]`, `GET /api/trials`. Пробы в `GET /api/trials` не фильтруются по классу. `riasec` в карточке профессии — справочник каталога, не результат ученика.
 
-- Генерация и хранение `sessionId` только как ключ API.
-- Экраны трека, диагностики по `grade`, 6 уточнений, рекомендации, рефлексия.
-- Отрисовка `nextStepOptions` с честным `available: false`.
-- Не показывать `fitScore` как «совпадение %».
-- Восстановление прогресса через `GET /api/session`.
-- Сообщения для 401/400/502/503/504.
+## Что не обещать на экране
 
-## Решения, которые нужны от Димы
-
-- Генерирует ли клиент UUID сам (сейчас backend этого не делает, кроме приёма заголовка).
-- Обязательны ли все 6 уточнений перед generate или достаточно диагностики.
-- Как показывать `available: false` (текст `note` с API или свой copy).
-- Нужен ли экран повторной загрузки по сохранённому `sessionId`.
-- Показывать ли справочный `riasec` профессии с `GET /api/professions` — это профиль каталога, не баллы ученика.
-- Класс и город: отдельного API профиля нет; `profiles` заполняется seed моков, не обычным track/select.
+- Организации, программы и пробы нового каталога ещё не импортированы целиком. Шаги 9–11 и список проб опираются на уже загруженные строки.
+- Живой успешный ответ GigaChat ещё не подтверждён. Запасной `retrieval_only` уже бывает у сохранённой рекомендации.
+- Старая рекомендация 5–8 класса, где колледж когда-то сохранился, при чтении не очищается. Новые генерации 5–8 колледж в шаги не кладут.
+- `confidenceBefore` записывается, но экран восстановления из `GET /api/session` его не получает.

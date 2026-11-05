@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { query } from "@/lib/db";
 import { handleError, jsonError } from "@/lib/http";
+import {
+  fetchLatestRecommendation,
+  savedRecommendationBody,
+} from "@/lib/recommendation-view";
 import { requireExistingSession } from "@/lib/session";
 
 export const runtime = "nodejs";
@@ -14,29 +18,10 @@ export async function GET(request: NextRequest) {
       return session.error;
     }
 
-    const saved = await query(
-      `SELECT
-         id,
-         session_id,
-         summary,
-         hypotheses,
-         trial_ids,
-         next_step,
-         pathways,
-         model_name,
-         created_at
-       FROM recommendations
-       WHERE session_id = $1
-       ORDER BY created_at DESC
-       LIMIT 1`,
-      [session.sessionId]
-    );
-
-    if (saved.rowCount === 0) {
+    const row = await fetchLatestRecommendation(query, session.sessionId);
+    if (!row) {
       return jsonError("Recommendation not found for this session", 404);
     }
-
-    const row = saved.rows[0];
     const trialIds = (row.trial_ids as string[]) ?? [];
     const trials =
       trialIds.length === 0
@@ -59,18 +44,7 @@ export async function GET(request: NextRequest) {
             )
           ).rows;
 
-    return NextResponse.json({
-      status: "saved",
-      recommendationId: row.id,
-      sessionId: row.session_id,
-      summary: row.summary,
-      hypotheses: row.hypotheses,
-      trials,
-      nextStep: row.next_step,
-      nextStepOptions: row.pathways,
-      model: row.model_name,
-      createdAt: row.created_at,
-    });
+    return NextResponse.json(savedRecommendationBody(row, trials));
   } catch (error) {
     return handleError(error);
   }

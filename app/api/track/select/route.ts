@@ -1,16 +1,11 @@
-
 import { NextRequest, NextResponse } from "next/server";
 
 import { query } from "@/lib/db";
 import { handleError, jsonError } from "@/lib/http";
-import { trackSchema } from "@/lib/schemas";
 import { readSessionId } from "@/lib/session";
+import { executeTrackSelect } from "@/lib/track-select";
 
 export const runtime = "nodejs";
-
-const requestBodySchema = trackSchema.omit({
-  sessionId: true,
-});
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,50 +14,27 @@ export async function POST(request: NextRequest) {
       return header.error;
     }
 
-    // 4. Проверяем тело запроса
-    const parsed = requestBodySchema.safeParse(
-      await request.json()
-    );
-
-    if (!parsed.success) {
-      return handleError(parsed.error);
+    let rawBody: unknown;
+    try {
+      rawBody = await request.json();
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        return jsonError("Request body must be valid JSON");
+      }
+      throw error;
     }
 
-    const { trackType } = parsed.data;
+    const outcome = await executeTrackSelect({
+      sessionId: header.sessionId,
+      body: rawBody,
+      query,
+    });
+    if (!outcome.ok) {
+      return jsonError(outcome.error, outcome.status, outcome.details);
+    }
 
-    // 5. Создаём сессию или обновляем существующую
-    await query(
-      `
-      INSERT INTO sessions (
-        id,
-        track_type,
-        created_at,
-        updated_at
-      )
-      VALUES ($1, $2, now(), now())
-      ON CONFLICT (id)
-      DO UPDATE SET
-        track_type = EXCLUDED.track_type,
-        updated_at = now()
-      `,
-      [header.sessionId, trackType]
-    );
-
-    return NextResponse.json(
-      {
-        sessionId: header.sessionId,
-        trackType,
-        status: "selected"
-      },
-      { status: 200 }
-    );
-
+    return NextResponse.json(outcome.body, { status: 200 });
   } catch (error) {
-    if (error instanceof SyntaxError) {
-      return jsonError("Request body must be valid JSON");
-    }
-
     return handleError(error);
   }
 }
-

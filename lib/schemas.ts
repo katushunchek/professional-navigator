@@ -5,6 +5,8 @@ export const sessionIdSchema = z.string().uuid();
 export const trackSchema = z.object({
   sessionId: z.string().uuid(),
   trackType: z.enum(["explore", "interests", "known_direction"]),
+  schoolGrade: z.number().int().min(1).max(11).optional(),
+  confidenceBefore: z.enum(["low", "medium", "high"]).optional(),
 });
 
 const diagnosticAnswerSchema = z.object({

@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { isMissingSchemaError, query } from "@/lib/db";
 import { handleError, jsonError } from "@/lib/http";
+import {
+  fetchLatestRecommendation,
+  sessionRecommendationBody,
+} from "@/lib/recommendation-view";
 import { requireExistingSession } from "@/lib/session";
 
 export const runtime = "nodejs";
@@ -78,20 +82,9 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    const recommendation = await query(
-      `SELECT
-         id,
-         summary,
-         hypotheses,
-         next_step,
-         pathways,
-         model_name,
-         created_at
-       FROM recommendations
-       WHERE session_id = $1
-       ORDER BY created_at DESC
-       LIMIT 1`,
-      [session.sessionId]
+    const recommendationRow = await fetchLatestRecommendation(
+      query,
+      session.sessionId
     );
 
     const reflections = await query(
@@ -103,7 +96,6 @@ export async function GET(request: NextRequest) {
     );
 
     const diagnosticRow = diagnostic.rows[0] ?? null;
-    const recommendationRow = recommendation.rows[0] ?? null;
     const profileRow = profile.rows[0] ?? null;
 
     return NextResponse.json({
@@ -132,15 +124,7 @@ export async function GET(request: NextRequest) {
           }
         : null,
       recommendation: recommendationRow
-        ? {
-            recommendationId: recommendationRow.id,
-            summary: recommendationRow.summary,
-            hypotheses: recommendationRow.hypotheses,
-            nextStep: recommendationRow.next_step,
-            nextStepOptions: recommendationRow.pathways,
-            model: recommendationRow.model_name,
-            createdAt: recommendationRow.created_at,
-          }
+        ? sessionRecommendationBody(recommendationRow)
         : null,
       reflections: reflections.rows,
     });
