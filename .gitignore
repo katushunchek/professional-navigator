@@ -1,5 +1,6 @@
 node_modules/
 .next/
+.next-e2e/
 out/
 .env
 .env.local
@@ -7,3 +8,6 @@ out/
 coverage/
 .DS_Store
 *.log
+*.dump
+backups/
+*.tsbuildinfo

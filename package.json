@@ -7,10 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/schemas.test.ts tests/mock-students.test.ts tests/sofi-adapter.test.ts tests/generate-route.test.ts tests/recommendation-read.test.ts tests/hybrid-profession-plan.test.ts tests/track-select.test.ts tests/gateway-env.test.ts tests/session-security.test.ts tests/mock-student-import.test.ts",
+    "db:import:mocks": "node --experimental-strip-types scripts/import-mock-students.ts",
+    "e2e:storage": "node scripts/e2e-storage.mjs",
+    "e2e:mocks": "node scripts/run-mock-students.mjs",
+    "e2e:mocks:persist": "node scripts/run-mock-students.mjs --persist --ai=3",
     "db:migrate": "node scripts/migrate.mjs",
-    "db:seed": "node scripts/seed.mjs"
+    "db:seed": "node scripts/seed.mjs",
+    "db:seed:mocks": "node scripts/seed-mock-students.mjs"
   },
   "dependencies": {
+    "axios": "^1.21.0",
+    "exceljs": "^4.4.0",
     "next": "^15.5.28",
     "pg": "^8.16.3",
     "react": "^19.1.1",

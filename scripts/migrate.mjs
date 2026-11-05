@@ -2,6 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import pg from "pg";
 
+import { loadLocalEnv } from "./load-env.mjs";
+
+loadLocalEnv();
+
 const { Pool } = pg;
 if (!process.env.DATABASE_URL) {
   console.error("DATABASE_URL is required");
